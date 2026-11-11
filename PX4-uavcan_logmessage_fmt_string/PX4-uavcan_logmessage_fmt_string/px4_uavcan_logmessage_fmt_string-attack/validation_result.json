@@ -1,0 +1,78 @@
+{
+  "case_id": "px4_uavcan_logmessage_fmt_string",
+  "verification_date": "2026-11-11",
+  "method": "raw source inspection at raw.githubusercontent.com for each ref",
+  "checks": [
+    {
+      "id": "V1",
+      "ref": "v1.14.0",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V2",
+      "ref": "v1.15.0",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V3",
+      "ref": "v1.16.0",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V4",
+      "ref": "v1.17.0",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V5",
+      "ref": "release/1.17",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V6",
+      "ref": "v1.18.0-rc1",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());",
+      "verdict": "vulnerable"
+    },
+    {
+      "id": "V7",
+      "ref": "main",
+      "commit": "ccf6adae010c7b128ad5ef126c63b6cbe715900e",
+      "path": "src/drivers/uavcan/logmessage.hpp",
+      "line": 88,
+      "observed": "px4_log_modulename(px4_level, module_name_buffer, \"%s\", msg.text.c_str());",
+      "verdict": "fixed"
+    },
+    {
+      "id": "V8",
+      "ref": "main",
+      "commit": "ccf6adae010c7b128ad5ef126c63b6cbe715900e",
+      "path": "src/drivers/uavcan/CMakeLists.txt",
+      "observed": "build flag \"-Wno-format-security # logmessage.hpp\" removed",
+      "verdict": "fixed"
+    }
+  ],
+  "tag_existence_check": {
+    "v1.18.0": "not found",
+    "v1.17.1": "not found"
+  },
+  "conclusion": "CONFIRMED",
+  "notes": "The defect is a missing format-string argument, not a memory-safety cascade. All affected refs carry the identical line, so the version boundary follows the tags, not a code change."
+}

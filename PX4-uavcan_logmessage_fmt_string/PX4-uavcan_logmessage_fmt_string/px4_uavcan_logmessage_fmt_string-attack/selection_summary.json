@@ -1,0 +1,40 @@
+{
+  "case_id": "px4_uavcan_logmessage_fmt_string",
+  "target": "PX4-Autopilot",
+  "vendor": "PX4 (Dronecode Foundation)",
+  "vulnerability_class": "externally controlled format string",
+  "cwe": "CWE-134",
+  "result": "CONFIRMED",
+  "verification_method": "source inspection of every affected ref and of the fixed commit",
+  "affected_refs": [
+    "v1.14.0",
+    "v1.15.0",
+    "v1.16.0",
+    "v1.17.0",
+    "release/1.17",
+    "v1.18.0-rc1"
+  ],
+  "fixed_ref": "main@ccf6adae010c7b128ad5ef126c63b6cbe715900e",
+  "fixed_release": "v1.18.0 (not released as of 2026-11-11)",
+  "attack_vector": "unauthenticated DroneCAN frame, subject-id 16383",
+  "impact": [
+    "denial of service",
+    "information disclosure"
+  ],
+  "write_primitive": false,
+  "severity": {
+    "cvss_3_1_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+    "base_score": 7.1,
+    "rating": "High"
+  },
+  "reproducer": "not published in this bundle; available to the vendor on request",
+  "evidence": {
+    "readme": "../README.md",
+    "source_report": "source_report.md",
+    "source_snapshot": "source_snapshot.hpp",
+    "verification": [
+      "validation_result.json",
+      "verification_log.txt"
+    ]
+  }
+}

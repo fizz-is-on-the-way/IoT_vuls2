@@ -1,0 +1,42 @@
+PX4-Autopilot - DroneCAN LogMessage format string
+Verification record
+Checked: 2026-11-10 through 2026-11-11
+Method:  fetch src/drivers/uavcan/logmessage.hpp at raw.githubusercontent.com
+         for each ref, read line 88, compare against the fixed line
+
+REF                 LINE 88
+v1.14.0             px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+v1.15.0             px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+v1.16.0             px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+v1.17.0             px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+release/1.17        px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+v1.18.0-rc1         px4_log_modulename(px4_level, module_name_buffer, msg.text.c_str());
+main @ ccf6adae     px4_log_modulename(px4_level, module_name_buffer, "%s", msg.text.c_str());
+
+RESULT
+- All six affected refs carry the third argument msg.text.c_str(), i.e. the text is
+  the format string and no variadic arguments are supplied.
+- main carries the fixed call with the "%s" literal in front.
+
+SURROUNDING EVIDENCE
+- Pull request: https://github.com/PX4/PX4-Autopilot/pull/29492
+- Fix commit:   ccf6adae010c7b128ad5ef126c63b6cbe715900e
+- Commit title: fix(uavcan): don't use DroneCAN log text as a format string
+- The same commit removes the build flag "-Wno-format-security # logmessage.hpp"
+  from src/drivers/uavcan/CMakeLists.txt.
+- Commit message carries "Reported by @zhangzheng18".
+
+RELEASE STATE
+- Latest published release: v1.18.0-rc1 (2026-09-10), vulnerable.
+- Tags v1.18.0 and v1.17.1 return 404, so no fixed release exists yet.
+
+SINK CHECK
+- platforms/common/px4_log.cpp: the token is consumed by va_start(argptr, fmt) and
+  passed to vsnprintf. Zero arguments at the call site means the conversion
+  specifiers read register and stack residue.
+- NuttX vsnprintf implements no %n conversion, so no write primitive exists.
+
+BOARD CHECK
+- UavcanLogMessage present in 6 of 6 CAN-capable default targets
+  (px4_fmu-v3, v4pro, v5, v5x, v6c, v6x).
+- px4_fmu-v2_default has no CAN stack.
