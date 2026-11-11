@@ -1,7 +1,7 @@
-# EDIMAX BR-6288ACL XSS Vulnerability (Access Control)
+# EDIMAX BR-6288ACL XSS Vulnerability (Virtual Server)
 ## Description
 
-EDIMAX BR-6288ACL Firmware BR6288ACL_1.12 contains a Store Cross-site scripting (XSS) vulnerability in the `Access Control`  Page.
+EDIMAX BR-6288ACL Firmware BR6288ACL_1.12 contains a Store Cross-site scripting (XSS) vulnerability in the `Virtual Server`  Page.
 
 ## EDIMAX BR-6288ACL version information
 
